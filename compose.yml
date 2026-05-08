@@ -5,16 +5,16 @@ version: '3.8'
 services:
   astrbot:
     image: soulter/astrbot:latest
-    container_name: astrbot
-    restart: always
+    restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-    ports:
-      - "6185:6185" # AstrBot WebUI
-      - "6199:6199" # Optional. OneBot v11 Napcat Websocket Port
+    expose:
+      - "6185"
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=America/Los_Angeles
     volumes:
-      - ./data:/AstrBot/data
-      # - /etc/timezone:/etc/timezone:ro
+      - astrbot_data:/AstrBot/data
       - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  astrbot_data:
